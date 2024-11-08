@@ -1,17 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Search from "./Search";
 
 
-function Header(){
+function Header(props){
     return(
         <>
-            <nav className="navbar" style = {{"backgroundColor" : "#E85428"}}>
-                <div className="container">
-                    <a className="navbar-brand text-white">FinProH8</a>
-                    <Search />
-                </div>
-            </nav>
-        
+            <a className="navbar-brand text-white">{props.title}</a>
         </>
     )
 }
