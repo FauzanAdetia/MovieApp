@@ -1,16 +1,23 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-
-function Search(){
+// eslint-disable-next-line react/prop-types
+function Search({Onclick, formVal}){
     return(
         <>                
         
-        <form className="d-flex" role="search">        
-            <div className="input-group input-group-sm mb-3 my-3">
-                <input type="text" className="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2 inputGroup-sizing-sm" style={{width : "250px"}} />
-                <button className="btn btn-dark" type="button" id="button-addon2">Search</button>
-            </div>
-        </form>
+        <button className="navbar-toggler mb-2 mb-lg-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+        </button>
+        
+        <div className="collapse navbar-collapse" id="navbarContent">
+            <form className="d-flex ms-auto mt-3 mt-lg-0" role="search">
+                <div className="input-group input-group-sm">
+                <input type="text" value={formVal} className="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2" style={{ width: "250px" }} />
+                <button className="btn btn-dark" type="button" id="button-addon2" onClick={Onclick}>Search</button>
+                </div>
+            </form>
+        </div>
         
         </>
     )

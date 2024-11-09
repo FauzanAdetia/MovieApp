@@ -1,41 +1,62 @@
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Header from './components/Header';
 import Movie from './components/Movie';
 import Search from './components/Search';
+import axios from 'axios';
+
 
 
 function App() {
+
+  
+  const [movie, setMovie] = useState([]);
+
+  const getMovies = () => {
+    axios.get("http://www.omdbapi.com/", {
+      params : {
+        's' : "Dragon ball",
+        'apikey' : 'dca61bcc'
+      }
+    })
+
+    .then(response =>{
+      setMovie(response.data.Search);
+    })
+    .catch(error =>{
+      console.log(error.response.data);
+    })
+  }
+
+  useEffect(()=>{
+    getMovies()
+  },[]);
+
+
   return (
     <>
-      <nav className="navbar" style = {{"backgroundColor" : "#E85428"}}>
+      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#E85428" }}>
         <div className="container">
-          <Header title = "FinProH8"></Header>
+          <Header title="FinProH8"/>
           <Search />
         </div>
       </nav>
       <div className="container">
         <h3 className="my-4" style={{ color: "#60779C" }}>Show Your Favorite Movies</h3>
-          <div className="row">
-              <div className="col-3 p-3">
-                  <div className="card">
-                      <div className="ratio ratio-1x1">
-                        <img
-                          src="https://grovewatch.com/wp-content/uploads/2019/11/Dragon_Ball_Super_Broly_0a64851e-4f88-411a-b587-a3f408f4cdc0_600x-e1574090551205.png"
-                          className="card-img-top"
-                          alt="..."
-                          style={{ objectFit: "cover" }}
-                        />
-                      </div>
-                      <div className="card-body text-white text-center" style={{ backgroundColor: "#E85428" }}>
-                        <Movie textTitle={"Dragon Ball Super: Broly"} />
-                      </div>
-                  </div>
-            </div>
-          </div>
+        <div className="row">
+          {
+            movie.map(m =>(
+              <Movie key={m.imdbID} img= {m.Poster} textTitle={m.Title} />
+            ))
+          }
+        </div>
+        
       </div>
+
     </>
   )
+  
 }
 
-export default App
+export default App;
