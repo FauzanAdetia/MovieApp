@@ -36,7 +36,7 @@ function App() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#E85428" }}>
+      <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#195e83" }}>
         <div className="container">
           <Header title="FinProH8"/>
           <Search />
