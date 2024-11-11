@@ -16,7 +16,7 @@ function App() {
   const getMovies = () => {
     axios.get("http://www.omdbapi.com/", {
       params : {
-        's' : "Dragon ball",
+        's' : "one piece",
         'apikey' : 'dca61bcc'
       }
     })
