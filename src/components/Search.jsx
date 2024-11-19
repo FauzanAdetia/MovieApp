@@ -1,8 +1,21 @@
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
+
 // eslint-disable-next-line react/prop-types
-function Search({Onclick, formVal}){
+function Search({onSearch}){
+    const [searchVal, setSearchVal] = useState("");
+    const handleInputChange = (event) => {
+        setSearchVal(event.target.value);
+    };
+    
+    const handleSearchClick = (e) => {
+        e.preventDefault(); 
+        onSearch(searchVal);
+    };
+
+
     return(
         <>                
         
@@ -11,10 +24,10 @@ function Search({Onclick, formVal}){
         </button>
         
         <div className="collapse navbar-collapse" id="navbarContent">
-            <form className="d-flex ms-auto mt-3 mt-lg-0" role="search">
+            <form className="d-flex ms-auto mt-3 mt-lg-0" role="search" onSubmit={handleSearchClick}>
                 <div className="input-group input-group-sm">
-                <input type="text" value={formVal} className="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2" style={{ width: "250px" }} />
-                <button className="btn btn-dark" type="button" id="button-addon2" onClick={Onclick}>Search</button>
+                <input type="text" value={searchVal} onChange={handleInputChange} className="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2" style={{ width: "250px" }} />
+                <button className="btn btn-dark" type="submit" id="button-addon2">Search</button>
                 </div>
             </form>
         </div>

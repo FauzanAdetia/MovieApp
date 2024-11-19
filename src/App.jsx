@@ -9,28 +9,30 @@ import axios from 'axios';
 
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
+  const [searchVal, setSearchVal] = useState("");
+  const [movie, setMovies] = useState([]);
 
-  
-  const [movie, setMovie] = useState([]);
+  const handleSearch = (query) => {
+    setSearchVal(query);
 
-  const getMovies = () => {
     axios.get("http://www.omdbapi.com/", {
-      params : {
-        's' : "one piece",
-        'apikey' : 'dca61bcc'
-      }
+        params: {
+            s: query || "one piece",
+            apikey: "your_apikey",
+        },
     })
+    .then(response => {
+        setMovies(response.data.Search || []);
+    })
+    .catch(error => {
+        console.error("Error fetching data:", error);
+    });
+};
 
-    .then(response =>{
-      setMovie(response.data.Search);
-    })
-    .catch(error =>{
-      console.log(error.response.data);
-    })
-  }
 
   useEffect(()=>{
-    getMovies()
+    handleSearch()
   },[]);
 
 
@@ -39,7 +41,8 @@ function App() {
       <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#195e83" }}>
         <div className="container">
           <Header title="FinProH8"/>
-          <Search />
+          <Search onSearch={handleSearch}/>
+
         </div>
       </nav>
       <div className="container">
